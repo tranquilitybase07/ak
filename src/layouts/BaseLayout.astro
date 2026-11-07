@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title?: string;
@@ -20,6 +21,7 @@ const { title, description } = Astro.props;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SEO title={title} description={description} />
+    <Analytics />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
