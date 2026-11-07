@@ -1,0 +1,207 @@
+---
+import LogoMark from './LogoMark.astro';
+import { site, socials } from '../data/site';
+
+const links = [...socials, { label: 'Resume', href: site.resume }];
+---
+
+<section id="contact" class="contact" data-reveal aria-labelledby="contact-title">
+  <div class="top">
+    <span class="badge" aria-hidden="true"><LogoMark size={40} color="#0E3B27" /></span>
+    <ul class="chips" aria-label="Available for">
+      <li class="chip lime" data-drag>Full-time</li>
+      <li class="chip white" data-drag>Freelance</li>
+      <li class="chip ghost" data-drag>Collabs</li>
+    </ul>
+  </div>
+  <h2 id="contact-title">Building something? <span>Let's talk.</span></h2>
+  <div class="bottom">
+    <a href={`mailto:${site.email}`} class="email" data-copy-email={site.email} data-magnet>
+      {site.email}
+      <span class="mono copy" data-copy-label>Copy</span>
+    </a>
+    <div class="links">
+      {
+        links.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" class="out">
+            {s.label} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<div class="toast" data-toast role="status" aria-live="polite" hidden>
+  <LogoMark />Email copied. Talk soon.
+</div>
+
+<style>
+  .contact {
+    margin-top: 64px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 40px;
+    padding: clamp(32px, 6vw, 80px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px;
+  }
+  .badge {
+    width: 76px;
+    height: 76px;
+    border-radius: 22px;
+    background: var(--lime);
+    display: grid;
+    place-items: center;
+    animation: bob 3s ease-in-out infinite;
+    flex: none;
+  }
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    position: relative;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+  .lime {
+    background: var(--lime);
+    color: var(--ink);
+    --rot: rotate(-5deg);
+  }
+  .white {
+    background: #fff;
+    color: var(--ink);
+    --rot: rotate(3deg);
+  }
+  .ghost {
+    border: 1.5px solid var(--lime);
+    color: var(--lime);
+    padding: 5px 9px;
+    --rot: rotate(-2deg);
+  }
+  .chip {
+    transform: var(--rot);
+  }
+  h2 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(46px, 7vw, 104px);
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+    max-width: 980px;
+    text-wrap: balance;
+  }
+  h2 span {
+    color: var(--lime);
+  }
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .email {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 100%;
+    background: var(--lime);
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 800;
+    font-size: clamp(18px, 2.2vw, 26px);
+    letter-spacing: -0.02em;
+    padding: 20px 26px;
+    border-radius: 20px;
+    overflow-wrap: anywhere;
+    transition:
+      transform 0.25s var(--spring),
+      background 0.2s;
+  }
+  .email:hover {
+    background: #fff;
+  }
+  .copy {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    background: var(--ink);
+    color: var(--lime);
+    border-radius: 8px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .out {
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: var(--forest);
+    transition: all 0.2s;
+  }
+  .out:hover {
+    background: #fff;
+    color: var(--ink);
+    transform: translateY(-3px);
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    z-index: 100;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    box-shadow: 0 20px 40px -16px rgba(14, 59, 39, 0.6);
+    animation: toastIn 0.35s var(--spring) both;
+  }
+  .toast[hidden] {
+    display: none;
+  }
+  @keyframes toastIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 14px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+  }
+</style>

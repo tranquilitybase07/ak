@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import About from '../components/About.astro';
+import aboutPhoto from '../assets/about.webp';
+import HowIWork from '../components/HowIWork.astro';
+import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main">
+    <Hero />
+    <Work />
+    <About photo={aboutPhoto} />
+    <HowIWork />
+    <Experience />
+    <Contact />
+    <Footer />
+  </main>
+</BaseLayout>
+
+<script>
+  import '../scripts/interactions';
+</script>
+
+<style>
+  main {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 6px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+</style>

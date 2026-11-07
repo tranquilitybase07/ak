@@ -1,0 +1,290 @@
+---
+import { Image } from 'astro:assets';
+import avatar from '../assets/avatar.webp';
+import { site, socials } from '../data/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="card intro">
+    <div class="top">
+      <div class="who">
+        <div class="avatar">
+          <Image src={avatar} alt={`Portrait of ${site.name}`} width={112} height={112} loading="eager" fetchpriority="high" />
+        </div>
+        <div>
+          <p class="name">{site.name}</p>
+          <p class="mono meta">{site.role} · {site.location}</p>
+        </div>
+      </div>
+      {
+        site.openToWork && (
+          <span class="status">
+            <span class="dot" aria-hidden="true" />
+            Open to new roles
+          </span>
+        )
+      }
+    </div>
+
+    <div>
+      <h1 id="hero-title">
+        Engineer by day. <span class="hl">Founder by night.</span>
+      </h1>
+      <p class="lede">
+        By day I'm building the web home for TrendAI, Trend Micro's new enterprise brand. After hours I take ideas from a blank page to a product people
+        can pay for. Four are live right now. Same rule for both: figure out who it's for before picking the stack.
+      </p>
+    </div>
+
+    <div class="actions">
+      <a href="#work" class="btn btn-solid primary" data-magnet>View my work <span aria-hidden="true">↓</span></a>
+      <a href={site.resume} target="_blank" rel="noopener" class="btn btn-outline secondary">Resume <span aria-hidden="true">↗</span></a>
+      <div class="socials">
+        {socials.map((s) => <a href={s.href} target="_blank" rel="me noopener" class="mono social">{s.label}</a>)}
+      </div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="card now">
+      <span class="arrow" data-arrow aria-hidden="true">
+        <svg width="118" height="118" viewBox="0 0 24 24">
+          <path d="M22 12 L3.5 3.8 Q8.5 12 3.5 20.2 Z" fill="#0E3B27" stroke="#0E3B27" stroke-width="1.4" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <div class="mono now-meta">
+        <span>Currently at</span>
+        <span>Ottawa · <time data-clock data-tz={site.timeZone}>--:--</time></span>
+      </div>
+      <div class="now-foot">
+        <p class="company">{site.current.company}</p>
+        <p class="blurb">{site.current.blurb}</p>
+      </div>
+    </div>
+    <a href="#work" class="work-tile">
+      <span class="work-label">Selected<br />work</span>
+      <span class="work-arrow" aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  p {
+    margin: 0;
+  }
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .intro {
+    flex: 2 1 580px;
+    min-height: 560px;
+    padding: clamp(28px, 4vw, 52px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 36px;
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 17px;
+    overflow: hidden;
+    background: #e9eeea;
+    transform: rotate(-4deg);
+    transition: transform 0.4s var(--spring);
+  }
+  .avatar:hover {
+    transform: rotate(4deg) scale(1.1);
+  }
+  .avatar :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .name {
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+  }
+  .meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 8px 13px;
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pulse);
+    animation: pulse 2s infinite;
+  }
+  h1 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(42px, 5.6vw, 74px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  .hl {
+    background: var(--lime);
+    border-radius: 14px;
+    padding: 0 12px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .lede {
+    margin-top: 22px;
+    max-width: 560px;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .primary {
+    font-size: 17px;
+    padding: 15px 22px;
+  }
+  .secondary {
+    gap: 8px;
+    font-size: 17px;
+    padding: 13.5px 20px;
+  }
+  .socials {
+    display: flex;
+    gap: 6px;
+    margin-left: 6px;
+  }
+  .social {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-radius: 12px;
+    transition:
+      background 0.2s,
+      transform 0.25s var(--spring);
+  }
+  .social:hover {
+    background: var(--chip);
+    transform: translateY(-2px);
+  }
+
+  .side {
+    flex: 1 1 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .now {
+    flex: 1.3 1 250px;
+    min-height: 250px;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .arrow {
+    display: block;
+    transition: transform 0.18s ease-out;
+    will-change: transform;
+  }
+  .arrow svg {
+    display: block;
+  }
+  .now-meta {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 22px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .now-foot {
+    position: absolute;
+    left: 24px;
+    bottom: 20px;
+    right: 24px;
+  }
+  .company {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+  .blurb {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .work-tile {
+    flex: 0.7 1 150px;
+    min-height: 150px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius-card);
+    padding: 26px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    transition: transform 0.3s var(--spring);
+  }
+  .work-tile:hover {
+    transform: scale(0.98);
+  }
+  .work-label {
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .work-arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--lime);
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    animation: bob 2.6s ease-in-out infinite;
+  }
+
+  @media (max-width: 640px) {
+    .intro {
+      min-height: 0;
+    }
+    .socials {
+      margin-left: 0;
+    }
+  }
+</style>

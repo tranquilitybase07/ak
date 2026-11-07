@@ -1,0 +1,104 @@
+---
+import LogoMark from './LogoMark.astro';
+import { nav, site } from '../data/site';
+---
+
+<header id="top" class="header">
+  <div class="bar">
+    <a href="#top" class="brand" aria-label={`${site.name} — home`}>
+      <span class="mark"><LogoMark /></span>
+      <span>{site.name}</span>
+    </a>
+    <nav aria-label="Primary">
+      {nav.map((item) => <a href={item.href} class="link">{item.label}</a>)}
+      <a href={site.resume} target="_blank" rel="noopener" class="link">Resume <span aria-hidden="true">↗</span></a>
+      <a href="#contact" class="cta">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 14px 16px;
+  }
+  .bar {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 22px;
+    padding: 8px 8px 8px 10px;
+    box-shadow: 0 8px 30px -18px rgba(14, 59, 39, 0.35);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    transition: transform 0.35s var(--spring);
+  }
+  .brand:hover .mark {
+    transform: rotate(-12deg) scale(1.08);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .link {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 14px;
+    transition: background 0.2s;
+  }
+  .link:hover {
+    background: var(--chip);
+  }
+  .cta {
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background: var(--ink);
+    color: #fff;
+    margin-left: 4px;
+    transition:
+      transform 0.25s var(--spring),
+      color 0.2s;
+  }
+  .cta:hover {
+    transform: translateY(-2px);
+    color: var(--lime);
+  }
+
+  @media (max-width: 720px) {
+    .link {
+      display: none;
+    }
+    .brand {
+      font-size: 18px;
+    }
+  }
+</style>

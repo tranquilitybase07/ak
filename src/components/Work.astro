@@ -1,0 +1,66 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/content';
+---
+
+<section id="work" class="work" aria-labelledby="work-title">
+  <div class="head" data-reveal>
+    <h2 id="work-title">Things I've shipped</h2>
+    <p>No client briefs, no tutorial clones. I picked the problem, designed it, built it and launched it. Four are live, one is on the way.</p>
+  </div>
+  <div class="grid">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</section>
+
+<style>
+  .work {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 64px;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 8px 10px;
+  }
+  h2 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(44px, 5.6vw, 76px);
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+  }
+  p {
+    margin: 0;
+    max-width: 340px;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+    gap: 14px;
+  }
+  /* An odd card out spans the full row on wide screens, cover and copy side by side */
+  @media (min-width: 1000px) {
+    .grid > :global(.project:last-child:nth-child(odd)) {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .grid > :global(.project:last-child:nth-child(odd) > .cover) {
+      flex: 1.15 1 0;
+    }
+    .grid > :global(.project:last-child:nth-child(odd) > .body) {
+      flex: 1 1 0;
+      justify-content: space-between;
+      padding: 28px 24px 14px;
+    }
+  }
+</style>
